@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Prezencka</h1>
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">ISIC</th>
+        <th scope="col">Meno</th>
+        <th scope="col">Priezvisko</th>
+        <th scope="col">Pritomny</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for ziak in ziaci %}
+    {% if ziak.pritomnost == False %}
+    <tr class="bg-warning">
+    {% else %}
+    <tr class="bg-info">
+    {% endif %}
+        <td>{{ ziak.isic_number }}</td>
+        <td>{{ ziak.first_name }}</td>
+        <td>{{ ziak.last_name }}</td>
+        <td>{{ ziak.pritomnost }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
