@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 import secret
+import settings
 
 db = SQLAlchemy()
 
@@ -10,7 +11,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = secret.SECRET_KEY
-    app.config['SQLALCHEMY_DATABASE_URI'] = secret.DB_URL
+    app.config['SQLALCHEMY_DATABASE_URI'] = settings.DB_URL
 
     db.init_app(app)
 
@@ -36,7 +37,7 @@ def create_app():
 
 
 def create_database(app):
-    if not path.exists('website/' + secret.DB_NAME):
+    if not path.exists('website/' + settings.DB_NAME):
         with app.app_context():
             db.create_all()
             print("Created DB!")
