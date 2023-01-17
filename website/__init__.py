@@ -49,7 +49,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Ziak, Predmet, Miestnost, predmety_ziakov, predmety_ucitelov, prezencka, MQTT
+    from .models import User, Ziak, Predmet, predmety_ucitelov, MQTT, Hodina, Attendance, prezencka
 
     create_database(app)
 
