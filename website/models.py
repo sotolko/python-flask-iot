@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+import datetime
 
 predmety_ziakov = db.Table('predmety_ziakov',
                            db.Column('ziak_id', db.Integer, db.ForeignKey('ziak.id')),
@@ -48,3 +49,10 @@ class Predmet(db.Model):
     miestnost_id = db.Column(db.Integer, db.ForeignKey('miestnost.id'))
     skupina = db.Column(db.Integer)
     prezencky = db.relationship('Ziak', secondary=prezencka)
+
+
+class MQTT(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    topic = db.Column(db.String(100))
+    message = db.Column(db.String(20))
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
