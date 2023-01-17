@@ -33,7 +33,7 @@ class Attendance(db.Model):
     Week_12 = db.Column(db.String(1), default='N')
     Week_13 = db.Column(db.String(1), default='N')
     Hodina_id = db.Column(db.Integer, db.ForeignKey('hodina.id'))
-    student = db.Column(db.Integer, db.ForeignKey('ziak.id'))
+    student_id = db.Column(db.Integer, db.ForeignKey('ziak.id'))
     # ziaci = db.relationship('Ziak', backref='ziaci')
     # prezencka_ziaka = db.relationship('Ziak', secondary=prezencka, backref='prezencka_ziaka')
 
