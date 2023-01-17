@@ -7,11 +7,6 @@ predmety_ucitelov = db.Table('predmety_ucitelov',
                              db.Column('hodina_id', db.Integer, db.ForeignKey('hodina.id'))
                              )
 
-prezencka = db.Table('prezencka',
-                     db.Column('ziak_id', db.Integer, db.ForeignKey('ziak.id')),
-                     db.Column('attendance_id', db.Integer, db.ForeignKey('attendance.id')),
-                     )
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,6 +33,7 @@ class Attendance(db.Model):
     Week_12 = db.Column(db.String(1), default='N')
     Week_13 = db.Column(db.String(1), default='N')
     Hodina_id = db.Column(db.Integer, db.ForeignKey('hodina.id'))
+    student = db.Column(db.Integer, db.ForeignKey('ziak.id'))
     # ziaci = db.relationship('Ziak', backref='ziaci')
     # prezencka_ziaka = db.relationship('Ziak', secondary=prezencka, backref='prezencka_ziaka')
 
@@ -47,7 +43,8 @@ class Ziak(db.Model):
     isic_number = db.Column(db.Integer, unique=True)
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(30))
-    ziakova_prezencka = db.relationship('Attendance', secondary=prezencka, backref='prezencka_ziaka')
+    attendance = db.relationship('Attendance', backref='ziak')
+    # ziakova_prezencka = db.relationship('Attendance', secondary=prezencka, backref='prezencka_ziaka')
 
 
 class Hodina(db.Model):
