@@ -2,11 +2,6 @@ from . import db
 from flask_login import UserMixin
 import datetime
 
-# predmety_ziakov = db.Table('predmety_ziakov',
-#                            db.Column('ziak_id', db.Integer, db.ForeignKey('ziak.id')),
-#                            db.Column('predmet_id', db.Integer, db.ForeignKey('predmet.id'))
-#                            )
-
 predmety_ucitelov = db.Table('predmety_ucitelov',
                              db.Column('ucitel_id', db.Integer, db.ForeignKey('user.id')),
                              db.Column('hodina_id', db.Integer, db.ForeignKey('hodina.id'))
@@ -14,9 +9,8 @@ predmety_ucitelov = db.Table('predmety_ucitelov',
 
 prezencka = db.Table('prezencka',
                      db.Column('ziak_id', db.Integer, db.ForeignKey('ziak.id')),
-                     db.Column('predmet_id', db.Integer, db.ForeignKey('attendance.id')),
+                     db.Column('attendance_id', db.Integer, db.ForeignKey('attendance.id')),
                      )
-
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
