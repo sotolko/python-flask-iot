@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -23,8 +25,9 @@ def create_app():
     app.config['MQTT_TLS_ENABLED'] = False  # set TLS to disabled for testing purposes
     # app.config['MQTT_TLS_INSECURE'] = True
 
-    db.init_app(app)
-    mqtt.init_app(app)
+    with app.app_context():
+        db.init_app(app)
+        mqtt.init_app(app)
 
     @mqtt.on_connect()
     def handle_connect(client, userdata, flags, rc):
@@ -33,15 +36,6 @@ def create_app():
             mqtt.subscribe('home/test')  # subscribe topic
         else:
             print('Bad connection. Code:', rc)
-
-    @mqtt.on_message()
-    def handle_mqtt_message(client, userdata, message):
-        data = dict(
-            topic=message.topic,
-            payload=message.payload.decode()
-        )
-
-        print('Received message on topic: {topic} with payload: {payload}'.format(**data))
 
     from .views import views
     from .auth import auth

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Meno</th>
+                <th scope="col">1</th>
+                <th scope="col">2</th>
+                <th scope="col">3</th>
+                <th scope="col">4</th>
+                <th scope="col">5</th>
+                <th scope="col">6</th>
+                <th scope="col">7</th>
+                <th scope="col">8</th>
+                <th scope="col">9</th>
+                <th scope="col">10</th>
+                <th scope="col">11</th>
+                <th scope="col">12</th>
+                <th scope="col">13</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for prezencka in prezencka_ziaci %}
+            <tr>
+                {% for ziak in ziaci %}
+                    {% if ziak.id == prezencka.student_id %}
+                        <td>{{ ziak.first_name }} {{ ziak.last_name}}</td>
+                        {% if prezencka.Week_1 == None or prezencka.Week_1 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_1 }}</td>
+                        {% elif prezencka.Week_1 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_1 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_1 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_2 == None or prezencka.Week_2 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_2 }}</td>
+                        {% elif prezencka.Week_2 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_2 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_2 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_3 == None or prezencka.Week_3 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_3 }}</td>
+                        {% elif prezencka.Week_3 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_3 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_3 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_4 == None or prezencka.Week_4 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_4 }}</td>
+                        {% elif prezencka.Week_4 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_4 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_4 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_5 == None or prezencka.Week_5 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_5 }}</td>
+                        {% elif prezencka.Week_5 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_5 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_5 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_6 == None or prezencka.Week_6 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_6 }}</td>
+                        {% elif prezencka.Week_6 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_6 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_6 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_7 == None or prezencka.Week_7 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_7 }}</td>
+                        {% elif prezencka.Week_7 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_7 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_7 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_8 == None or prezencka.Week_8 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_8 }}</td>
+                        {% elif prezencka.Week_8 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_8 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_8 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_9 == None or prezencka.Week_9 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_9 }}</td>
+                        {% elif prezencka.Week_9 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_9 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_9 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_10 == None or prezencka.Week_10 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_10 }}</td>
+                        {% elif prezencka.Week_10 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_10 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_10 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_11 == None or prezencka.Week_11 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_11 }}</td>
+                        {% elif prezencka.Week_11 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_11 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_11 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_12 == None or prezencka.Week_12 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_12 }}</td>
+                        {% elif prezencka.Week_12 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_12 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_12 }}</td>
+                        {% endif %}
+
+                        {% if prezencka.Week_13 == None or prezencka.Week_13 == 'N' %}
+                        <td class ='bg-danger'>{{ prezencka.Week_13 }}</td>
+                        {% elif prezencka.Week_13 == 'O' %}
+                        <td class ='bg-warning'>{{ prezencka.Week_13 }}</td>
+                        {% else %}
+                        <td class ='bg-success'>{{ prezencka.Week_13 }}</td>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+{% endblock %}

@@ -3,26 +3,20 @@
 
 {% block content %}
 <h1>Prezencka</h1>
-<table class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Meno</th>
-        <th scope="col">Priezvisko</th>
-        <th scope="col">Pritomny</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for ziak in ziaci %}
-    {% if ziak.pritomnost == False %}
-    <tr class="bg-danger">
-    {% else %}
-    <tr class="bg-success">
-    {% endif %}
-        <td>{{ ziak.first_name }}</td>
-        <td>{{ ziak.last_name }}</td>
-        <td>{{ ziak.pritomnost }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<form class="form-inline" action="{{ url_for('views.submit') }}" method="POST">
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Hodina</label>
+  <select class="custom-select my-1 mr-sm-2" name="inlineFormCustomSelectPref">
+    <option selected>Vyber...</option>
+      {% for predmet in user.hodiny %}
+            {% for hodina in predmety %}
+                {% if hodina.id == predmet.Subject_id %}
+
+                    <option value="{{ hodina.id }}">{{ predmet.Time }} {{ hodina.Nazov }}</option>
+                {% endif %}
+            {% endfor %}
+      {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-primary my-1">Zobrazit</button>
+</form>
 {% endblock %}
