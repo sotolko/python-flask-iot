@@ -3,14 +3,18 @@ import sqlite3
 from paho.mqtt import client as mqtt_client
 import json
 import website.settings, website.secret
+import os
+
 
 broker = website.settings.MQTT_BROKER
 port = 1883
-topic = "home/test"
+topic_prezencka = "home/prezencka"
+topic_ospravedlnenie = 'home/ospravedlnenie'
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 username = website.secret.MQTT_NAME
 password = website.secret.MQTT_PASS
+cwd = os.getcwd()
 
 
 def connect_mqtt() -> mqtt_client:
@@ -35,27 +39,37 @@ def subscribe(client: mqtt_client):
         )
 
         json_object = json.loads(data['payload'])
+        print(data['topic'])
         isic = json_object['isic']
         hodina = json_object['hodina_id']
+        tyzden = json_object['week']
+        if not tyzden.isnumeric() or int(tyzden) > 13 or int(tyzden) < 1 or not hodina.isnumeric():
+            print("UPDATE ERROR")
+            return
 
-        conn = sqlite3.connect("C:\\Users\\tomas\\Desktop\\projects\\iot\\instance\\database.db")
-        cur = conn.cursor()
-        sql = f"""UPDATE Attendance set Week_3 = 1 where student_id = (SELECT id from Ziak where isic_number = {isic}) AND Hodina_id = {hodina}"""
+        if data['topic'] == 'home/prezencka':
+            conn = sqlite3.connect(f"{cwd}\\instance\\database.db")
+            cur = conn.cursor()
+            sql = f"""UPDATE Attendance set Week_{tyzden} = 'P' WHERE student_id IN (SELECT id from Ziak where isic_number = '{isic}') AND Hodina_id = {hodina}"""
 
-        cur.execute(sql)
-        conn.commit()
-        cur.close()
-        conn.close()
-        print("Updated")
-        # ziak = results.query.filter(isic == Ziak.isic_number).first()
-        # prezencka = Attendance.query.filter(hodina == Attendance.Hodina_id, ziak.id == Attendance.student_id)
-        # prezencka.Week_1 = 'P'
-        # with app.app_context().push():
-        #     db.session.merge(prezencka)
-        #     db.session.commit()
-        #     print("UPDATED!")
+            cur.execute(sql)
+            conn.commit()
+            cur.close()
+            conn.close()
+            print("Prezencka updated!")
+        elif data['topic'] == 'home/ospravedlnenie':
+            conn = sqlite3.connect(f"{cwd}\\instance\\database.db")
+            cur = conn.cursor()
+            sql = f"""UPDATE Attendance set Week_{tyzden} = 'O' WHERE student_id IN (SELECT id from Ziak where isic_number = '{isic}') AND Hodina_id = {hodina}"""
 
-    client.subscribe(topic)
+            cur.execute(sql)
+            conn.commit()
+            cur.close()
+            conn.close()
+            print("Ospravedlnenie updated!")
+
+    client.subscribe(topic_prezencka)
+    client.subscribe(topic_ospravedlnenie)
     client.on_message = on_message
 
 

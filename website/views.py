@@ -47,23 +47,26 @@ def mqtt_actions():
 
     if request.method == 'POST':
         isic_number = request.form.get('send-isic')
-        send_date = request.form.get('send-time')
+        send_week = request.form.get('send-time')
         hodina_id = request.form.get('send-id')
         topic = request.form.get('send-topic')
 
-        # if len(message) > 20:
-        #     flash('Sprava nesmie byt vacsia ako 20 znakov!', category='error')
-        #     return render_template('mqtt_actions.html', user=current_user, spravy=messages)
-        # elif len(topic) > 100:
-        #     flash('Topic nesmie byt vacsi ako 100 znakov!', category='error')
-        #     return render_template('mqtt_actions.html', user=current_user, spravy=messages)
-        # elif topic != 'home/test':
-        #     flash(f'Not subscribed to topic {topic}', category='error')
-        #     return render_template('mqtt_actions.html', user=current_user, spravy=messages)
+        if len(isic_number) > 20:
+            flash('ISIC nesmie byt vacsi ako 20 znakov!', category='error')
+            return render_template('mqtt_actions.html', user=current_user, spravy=messages)
+        elif len(send_week) > 13 or len(send_week) < 1:
+            flash('Tyzden musi byt 1-13!', category='error')
+            return render_template('mqtt_actions.html', user=current_user, spravy=messages)
+        elif not send_week.isnumeric():
+            flash('Tyzden musi byt cislo!', category='error')
+            return render_template('mqtt_actions.html', user=current_user, spravy=messages)
+        elif topic != 'home/prezencka' and topic != 'home/ospravedlnenie':
+            flash(f'Not subscribed to topic {topic}', category='error')
+            return render_template('mqtt_actions.html', user=current_user, spravy=messages)
 
         send_msg = {
             'isic': isic_number,
-            'date': send_date,
+            'week': send_week,
             'hodina_id': hodina_id
         }
 

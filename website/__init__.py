@@ -33,7 +33,8 @@ def create_app():
     def handle_connect(client, userdata, flags, rc):
         if rc == 0:
             print('Connected successfully')
-            mqtt.subscribe('home/test')  # subscribe topic
+            mqtt.subscribe('home/prezencka')  # subscribe topic
+            mqtt.subscribe('home/ospravedlnenie')  # subscribe topic
         else:
             print('Bad connection. Code:', rc)
 

@@ -8,16 +8,16 @@
         <h2>SEND</h2>
       <form method="POST">
           <div class="form-group">
-          <textarea class="form-control" id="send-isic" name="send-isic" rows="1" placeholder="ISIC Number"></textarea>
+          <textarea class="form-control" id="send-isic" name="send-isic" rows="1" placeholder="ISIC Number" required></textarea>
           </div>
           <div class="form-group">
-          <textarea class="form-control" id="send-time" name="mqtt-time" rows="1" placeholder="Cas" value="{{ date }}"></textarea>
+          <textarea class="form-control" id="send-time" name="send-time" rows="1" placeholder="Tyzden" required></textarea>
           </div>
           <div class="form-group">
-          <textarea class="form-control" id="send-id" name="send-id" rows="1" placeholder="Hodina id"></textarea>
+          <textarea class="form-control" id="send-id" name="send-id" rows="1" placeholder="Hodina id" required></textarea>
           </div>
         <div class="form-group">
-          <textarea class="form-control" id="send-topic" name="send-topic" placeholder="Topic, 'home/test' ONLY!"></textarea>
+          <textarea class="form-control" id="send-topic" name="send-topic" placeholder="Topic, 'home/prezencka' or 'home/ospravedlnenie'!" required></textarea>
         </div>
           <hr>
           <button type="submit" class="btn btn-primary" onclick="">Send</button>
