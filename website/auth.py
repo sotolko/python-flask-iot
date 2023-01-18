@@ -57,9 +57,8 @@ def sign_up():
             flash('Password must be greater than 6 characters', category='error')
         else:
             new_user = User(email=email, first_name=first_name, last_name=last_name, password=generate_password_hash(password1, method='sha256'))
-            with current_app.app_context():
-                db.session.merge(new_user)
-                db.session.commit()
+            db.session.add(new_user)
+            db.session.commit()
 
             login_user(new_user, remember=True)
             flash('Acc created!', category='success')
