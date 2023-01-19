@@ -43,7 +43,7 @@ def subscribe(client: mqtt_client):
         json_object = json.loads(data['payload'])
         print(data['topic'])
         isic_crypted = json_object['isic']
-        isic = rsa.decrypt(isic_crypted, website.secret.RSA_PRIVATE).decode()
+        isic = website.secret.AES_PRIVATE.decrypt(isic_crypted)
         hodina = json_object['hodina_id']
         tyzden = json_object['week']
         if not tyzden.isnumeric() or int(tyzden) > 13 or int(tyzden) < 1 or not hodina.isnumeric():

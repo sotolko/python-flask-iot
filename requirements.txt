@@ -6,3 +6,4 @@ sqlalchemy~=1.4.46
 Werkzeug~=2.2.2
 pandas~=1.5.2
 paho-mqtt~=1.6.1
+rsa~=4.9
