@@ -1,5 +1,7 @@
 import random
 import sqlite3
+
+import rsa
 from paho.mqtt import client as mqtt_client
 import json
 import website.settings, website.secret
@@ -40,7 +42,8 @@ def subscribe(client: mqtt_client):
 
         json_object = json.loads(data['payload'])
         print(data['topic'])
-        isic = json_object['isic']
+        isic_crypted = json_object['isic']
+        isic_decrypted = rsa.decrypt(isic_crypted, website.secret.RSA_PRIVATE).decode()
         hodina = json_object['hodina_id']
         tyzden = json_object['week']
         if not tyzden.isnumeric() or int(tyzden) > 13 or int(tyzden) < 1 or not hodina.isnumeric():
