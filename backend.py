@@ -1,13 +1,12 @@
 import random
 import sqlite3
-
-from Crypto.Cipher import AES
-import base64
+from Cryptodome.Cipher import AES
+from base64 import b64decode
 from paho.mqtt import client as mqtt_client
 import json
 import website.settings, website.secret
 import os
-
+import binascii
 
 broker = website.settings.MQTT_BROKER
 port = 1883
@@ -44,10 +43,12 @@ def subscribe(client: mqtt_client):
         json_object = json.loads(data['payload'])
         print(data['topic'])
         isic_crypted = json_object['isic']
-        isic_coded = website.secret.AES_PRIVATE.decrypt(isic_crypted)
-        isic = isic_coded.decode('ascii')
         hodina = json_object['hodina_id']
         tyzden = json_object['week']
+
+        cipher = AES.new(website.secret.AES_PRIVATE, AES.MODE_ECB)
+        decrypted = cipher.decrypt(binascii.unhexlify(isic_crypted))
+        isic = decrypted.decode('ascii').strip()
         if not tyzden.isnumeric() or int(tyzden) > 13 or int(tyzden) < 1 or not hodina.isnumeric():
             print("UPDATE ERROR")
             return
